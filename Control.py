@@ -14,6 +14,8 @@
 #   To convert the images to a time lapse video use avconv.
 #       This needs to be installed 'sudo apt-get install libav-tools'
 #
+#	To convert the pictures into a video, need to do:
+#		avconv -y -r 10 -i picture-%08d.jpg -vcodec libx264 output.mp4
 #
 
 # Import classes
@@ -51,14 +53,7 @@ def within_time(time_now):
     else:
         return True
     return False
-   
-def image_name_date(time_now):
-    """
-    Generate a unique time based on the time given
-    """
-    im_name = ("picture-%04d%02d%02d%02d%02d%02d.jpg" % 
-        (time_now.year, time_now.month, time_now.day, time_now.hour, time_now.minute, time_now.second))
-    return im_name_date
+
 
 def image_name():
     """
@@ -85,7 +80,6 @@ def main():
         if within_time(now):
             # After time since last image taken
             if now - last_capture > timedelta(seconds = time_lapse):
-                #img_name = image_name(now)
                 img_name = image_name()
                 # Take and store picture
                 # start_preview
